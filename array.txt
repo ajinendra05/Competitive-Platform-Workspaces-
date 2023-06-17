@@ -1,0 +1,4 @@
+*ARRAY*
+
+greatest Subarray = save every sum value until the sum < 0
+                    save every sum value of pair between negetive number;

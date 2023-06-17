@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+
+class MyHashSet
+{
+    vector<int> hashSet;
+
+public:
+    
+
+    void add(int key){
+
+        if(!binarySearch(this->hashSet,0,this->hashSet.size(),key)){
+            hashSet.push_back(key);
+            sort(hashSet.begin(),hashSet.end());
+        }
+    // {if(key>this->hashSet[this->hashSet.size()-1]){
+    //     hashSet.push_back(key);
+    //     return;
+    // }
+    // if(key<this->hashSet[0]){
+    //     hashSet.insert(hashSet.begin(),key);
+    //     return;
+    // }
+    // addbinarySearch(hashSet,0,hashSet.size(),key);
+    }
+
+    void remove(int key)
+    {
+        std::remove(this->hashSet.begin(),this->hashSet.end(),key);
+
+    }
+    // void addbinarySearch(vector<int> v, int s, int e, int element)
+    // {
+    //     if (s > e)
+    //         return false;
+    //     int mid = s + (e - s) / 2;
+    //     if (v[mid] == element)
+    //     {
+    //         return ;
+    //     }
+    //     if (v[mid] < element&& element<v[mid+1])
+    //     {
+            
+    //     }
+    //     if (v[mid] < element)
+    //     {
+    //         return binarySearch(v, mid + 1, e, element);
+    //     }
+    //     return binarySearch(v, s, mid - 1, element);
+    // }
+    bool binarySearch(vector<int> v, int s, int e, int element)
+    {
+        if (s > e)
+            return false;
+        int mid = s + (e - s) / 2;
+        if (v[mid] == element)
+        {
+            return true;
+        }
+        if (v[mid] < element)
+        {
+            return binarySearch(v, mid + 1, e, element);
+        }
+        return binarySearch(v, s, mid - 1, element);
+    }
+    bool contains(int key)
+    {
+        return binarySearch(this->hashSet, 0, this->hashSet.size(), key);
+    }
+};
+
+int main()
+{ 
+
+    MyHashSet myHashSet =  MyHashSet();
+myHashSet.add(1);      // set = [1]
+myHashSet.add(2);      // set = [1, 2]
+cout<<myHashSet.contains(1); // return True
+cout<<myHashSet.contains(3); // return False, (not found)
+myHashSet.add(2);      // set = [1, 2]
+cout<<myHashSet.contains(2); // return True
+myHashSet.remove(2);   // set = [1]
+cout<<myHashSet.contains(2); 
+
+    // fastio();
+    // ll t;
+
+    return 0;
+}
