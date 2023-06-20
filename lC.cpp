@@ -615,7 +615,7 @@ public:
             }
             if (arr1[i] >= m)
             {
-                m=arr1[i];
+                m = arr1[i];
             }
             else if (arr1[i] < m)
             {
@@ -675,3 +675,125 @@ int main()
     // cout << s.knightProbability(3, 2, 0, 0);
     return 0; // return 12.00000. Three trips "Leyton" -> "Waterloo", (10 + 12 + 14) / 3 = 12
 }
+
+class Solution
+{
+public:
+    int distanceTraveled(int mainTank, int additionalTank)
+    {
+
+        int ans = 0;
+
+        while (mainTank > 0)
+        {
+            if (mainTank >= 5 && additionalTank > 0)
+            {
+                ans += 50;
+                mainTank -= 5;
+                ++mainTank;
+                --additionalTank;
+            }
+            else
+            {
+                ans += mainTank * 10;
+                mainTank = 0;
+            }
+        }
+        return ans;
+    }
+};
+class Solution
+{
+public:
+    int findValueOfPartition(vector<int> &nums)
+    {
+        int n = nums.size();
+        int ans = INT_MAX;
+        sort(nums.begin(), nums.end());
+
+        for (int i = 1; i < n; i++)
+        {
+            ans = min(ans, abs(nums[i - 1] - nums[i]));
+        }
+        return ans;
+    }
+};
+
+class Solution
+{
+    map<int, bool> isvisited;
+    int t = 0;
+
+public:
+    int traverse(vector<vector<int>> x, int y)
+    {   if(t==x.size())return 0;
+        int total = 0;
+        for (int i = 0; i < x[y].size(); i++)
+        {
+            if (isvisited[y] == false)
+            {
+                t++;
+                isvisited[y] = true;
+                total += traverse(x, x[y][i]);
+                isvisited[y] = false;
+                t--;
+            }
+        }
+        return total;
+    }
+    int specialPerm(vector<int> &nums)
+    {
+        int n = nums.size();
+        int ans=0;
+        int curr=0;
+        vector<vector<int>> x(n);
+        for (int i = 0; i < n - 1; i++)
+        {
+            if (nums[i] % nums[i + 1] == 0)
+            {
+                x[nums[i]].push_back(nums[i + 1]);
+            }
+            if (nums[i + 1] % nums[i] == 0)
+            {
+                x[nums[i + 1]].push_back(nums[i]);
+            }
+        }
+        for(int i=0;i<n;i++){
+            curr=traverse(x,nums[i]);
+            if(t==n)ans+=curr;
+            t=0;
+            isvisited.clear(); 
+        }
+        return ans;
+    }
+};
+
+class Solution
+{
+public:
+    int paintWalls(vector<int> &cost, vector<int> &time)
+    {
+        int n = cost.size();
+        vector<pair<int, int>> x;
+        for (int i = 0; i < n; i++)
+        {
+            x.push_back(make_pair(cost[i], time[i]));
+        }
+        sort(x.begin(), x.end());
+        int t = 0, ans = 0;
+        int j = 0;
+        while (!x.empty() && j < x.size())
+        {
+            ans += x[j].first;
+            t = x[j].second;
+            for (int k = 0; k < t; k++)
+            {
+                x.pop_back();
+                if (x.empty())
+                    return ans;
+            }
+            j++;
+        }
+        return ans;
+    }
+};

@@ -3,19 +3,19 @@ using namespace std;
 int fact[100];
 const int m = 1e9 + 7;
 
-
-struct AnotherVal{
-    int value = -1; // can be changed as per requirement 
+struct AnotherVal
+{
+    int value = -1; // can be changed as per requirement
 };
-  
+
 map<int, AnotherVal> tempmap;
 // int main()
 // {
 //     map<int, AnotherVal> tempmap;
 //     cout << tempmap[1].value << endl;
-  
+
 //     return 0;
-// } 
+// }
 // if(mp.find(z)!=mp.end()) =>
 //  z is found in mp at any point becouse
 //  iterator is not equal to end of set.
@@ -113,9 +113,45 @@ int fibonachiNum(int n)
     return fibonachiNum(n - 1) + fibonachiNum(n - 2);
 }
 
-// fibonachi Number By formula 
-int fibonachiForm(int n){
-    int a = int(pow((1+sqrt(5))/2,n)- pow((1-sqrt(5))/2,n) )/sqrt(5);
+// pass n in function to find fibonachi of that number in o(n);
+// fibonachiNum(n,2,3)
+int fibonachiNum2(int n, int i, int j)
+{
+    if (n == 0 || n == 1)
+        return n;
+    if (n == 2 || n == 3 || n == 4)
+        return n - 1;
+    if (n - 1 == 4)
+        return i + j;
+    return fibonachiNum2(n - 1, j, i + j);
+}
+
+// pass n-1 in function to find fibonachi of that number in o(n); ## more best solution
+int fibonachiNum3(int n, int i, int j)
+{
+    if (n == 4)
+        return i + j;
+    return fibonachiNum3(n - 1, j, i + j);
+}
+int climbStairs(int n)
+{
+    // if (n == 1 || n == 2 || n == 3)
+    //     return n;
+    // int count = fibonachiNum(n , 2, 3);
+    // return count;
+
+    if (n == 0 || n == 1)
+        return n;
+    if (n == 2 || n == 3 || n == 4)
+        return n - 1;
+    int f = fibonachiNum3(n - 1, 2, 3);
+    return f;
+}
+
+// fibonachi Number By formula
+int fibonachiForm(int n)
+{
+    int a = int(pow((1 + sqrt(5)) / 2, n) - pow((1 - sqrt(5)) / 2, n)) / sqrt(5);
     return a;
 }
 // Binary Search
@@ -135,7 +171,7 @@ int binarySearch(int a[], int target, int s, int e)
 }
 
 // Any matching element
-int binarySearch(int arr[], int l, int r, int x)
+int binarySearch2(int arr[], int l, int r, int x)
 {
     while (l <= r)
     {
@@ -177,20 +213,21 @@ int binarySearch(vector<int> &arr, int l, int r, int x)
     return idx;
 }
 
-//get frequency of number
-void frequencyNumber(int arr[],int size)
+// get frequency of number
+void frequencyNumber(int arr[], int size)
 {
 
+    unordered_map<int, int> freqMap;
 
-unordered_map<int,int>freqMap;
+    for (int i = 0; i < size; i++)
+    {
+        freqMap[arr[i]]++;
+    }
 
-for (int i=0;i<size;i++) {
-	freqMap[arr[i]]++;
-}
-
-for (auto it : freqMap) {
-	cout<<it.first<<" "<<it.second<<endl;
-}
+    for (auto it : freqMap)
+    {
+        cout << it.first << " " << it.second << endl;
+    }
 }
 // get all subString of any string
 unordered_set<string> getSubString(string s)
@@ -256,22 +293,26 @@ public:
     }
 };
 
-vector<bool> isPrime(m,true);
-void sieveAlgo_AllPrime(){
-  
-  isPrime[0]==isPrime[1]==false;
-  for(int i=2;i<m;i++){
-    if(isPrime[i]){
-        for(int j=i*2;j<m;j+=i){
-            isPrime[j]=false;
+vector<bool> isPrime(m, true);
+void sieveAlgo_AllPrime()
+{
+
+    isPrime[0] == isPrime[1] == false;
+    for (int i = 2; i < m; i++)
+    {
+        if (isPrime[i])
+        {
+            for (int j = i * 2; j < m; j += i)
+            {
+                isPrime[j] = false;
+            }
         }
     }
-  }
 }
 int main()
 {
     // cout << binexp(2, 8, m);
-    // cout << fibonachiNum(8);
+    cout << climbStairs(8);
     int a[] = {4, 5, 6, 8, 7, 2, 33};
-    cout << binarySearch(a, 6, 0, (sizeof(a) / sizeof(a[0])) - 1);
+    // cout << binarySearch(a, 6, 0, (sizeof(a) / sizeof(a[0])) - 1);
 }
