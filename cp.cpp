@@ -28,7 +28,6 @@ using namespace std;
 
 //----------------------------- # --- MAIN CODE --- # -----------------------------//
 
-
 #include <bits/stdc++.h>
 using namespace std;
 #define fastio()                      \
@@ -61,13 +60,14 @@ void solve()
         }
     }
     sort(v.begin(), v.end(), greater<int>());
-    if(c==1){
-        cout<<c<<endl;
+    if (c == 1)
+    {
+        cout << c << endl;
     }
     else if (c == n || (digit > (lastd + 1)))
     {
         int rem = c % 2;
-        cout << (c / 2) + rem<<endl;
+        cout << (c / 2) + rem << endl;
     }
     else
     {
@@ -88,5 +88,196 @@ int main()
     return 0;
 }
 
+class Solution
+{
+public:
+    int maximumNumberOfStringPairs(vector<string> &words)
+    {
+        int n = words.size();
+        vector<string> revwords;
+        string s;
+        int count = 0;
+        for (int i = 0; i < n; i++)
+        {
+            s = words[i];
+            reverse(s.begin(), s.end());
 
+            revwords.push_back(s);
+        }
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i; i < n; i++)
+            {
+                if (words[i] == revwords[j])
+                {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+};
 
+class Solution
+{
+public:
+    int longestString(int x, int y, int z)
+    {
+        int sum = 0;
+        int m = min(x, y);
+        int M = max(x, y);
+
+        sum = (m * 2) + min((m + 1) * 2, M * 2) + (z * 2);
+        return sum;
+    }
+};
+
+class Solution
+{
+    int k;
+
+public:
+    int traversee(vector<string> &words, string s, int i)
+    {
+        if (i == k)
+            return s.size();
+
+        string s1;
+        string s2;
+
+        if (s[0] == words[i].back() && s.back() == words[i][0])
+        {
+            s.size() > 1 ? s1 = words[i] + s.substr(1, s.size() - 1) : s1 = words[i];
+            words[i].size() > 1 ? s2 = s + words[i].substr(1, s.size() - 1) : s2 = s;
+            return min(traversee(words, s1, i + 1), traversee(words, s2, i + 1));
+        }
+        if (s[0] == words[i].back() || (words[i].size() == 1 && s[0] == words[i][0]))
+        {
+            s1 = words[i] + s.substr(1, s.size() - 1);
+            return min(traversee(words, s1, i + 1), traversee(words, s + words[i], i + 1));
+        }
+        if (s.back() == words[i][0] || (s.size() == 1 && s[0] == words[i][0]))
+        {
+            s2 = s + words[i].substr(1, s.size() - 1);
+            return min(traversee(words, words[i] + s, i + 1), traversee(words, s2, i + 1));
+        }
+        return min(traversee(words, words[i] + s, i + 1), traversee(words, s + words[i], i + 1));
+    }
+
+    int minimizeConcatenatedLength(vector<string> &words)
+    {
+        k = words.size();
+        return traversee(words, words[0], 1);
+    }
+};
+
+class Solution
+{
+    int GCD(int a, int b)
+    {
+        if (a == 0)
+        {
+            return b;
+        }
+        return GCD(b % a, a);
+    }
+
+public:
+    int countBeautifulPairs(vector<int> &nums)
+    {
+        int n = nums.size();
+        int x1, x2;
+        int dig;
+        int count = 0;
+        int m, M;
+        for (int i = 0; i < n; i++)
+        {
+            dig = log10(nums[i]);
+            x1 = nums[i] / pow(10, dig);
+            for (int j = i + 1; j < n; j++)
+            {
+                x2 = nums[i] % 10;
+                m = min(x1, x2);
+                M = max(x1, x2);
+                if (gcd(m, M) == 1)
+                    count++;
+            }
+        }
+        return count;
+    }
+};
+
+class Solution
+{
+public:
+    int makeTheIntegerZero(int num1, int num2)
+    {
+        if (num1 <= num2)
+            return -1;
+
+        int ans = num1;
+        int count = 0;
+        int bits;
+        ans = num1 - num2;
+        while (ans > 0)
+        {
+            (ans & 1) == 1 ? count++ : count;
+            ans = ans >> 1;
+        }
+        // while (num1 != 0)
+        // {
+        //     //   ans-=(num2);
+        //     //   bits=log2(ans);
+        //     //   count++;
+        //     //   ans-=pow(2,bits);
+        //     count++;
+        //     for (int i = 0; i <= 60; i++)
+        //     {
+        //         if (((num1 - pow(2, i)) == num2))
+        //         {
+        //             return count;
+        //         }
+        //         if (((num1 - pow(2, i) - num2) < num2))
+        //         {
+        //             num1 = num1 - (num2 + pow(2, i - 1));
+        //             // num1-=pow(2,i-1);
+        //             break;
+        //         }
+        //     }
+        // }
+        return count+1;
+    }
+};
+
+class Solution
+{
+    int fact[100];
+    const int m = 1e9 + 7;
+    void countFact()
+    {
+        fact[0] = 1;
+        for (int i = 1; i < 100; ++i)
+        {
+            fact[i] = (fact[i - 1] * 1LL * i) % m;
+        }
+    }
+
+public:
+    Solution()
+    {
+        countFact();
+    }
+    int numberOfGoodSubarraySplits(vector<int> &nums)
+    {
+        int n = nums.size();
+        int ones = 0;
+        for (auto x : nums)
+        {
+            if (x == 1)
+                ones++;
+        }
+        if (ones == 1)
+            return 1;
+        long long ans = fact[n - ones] / fact[ones];
+    }
+};
