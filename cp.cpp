@@ -28,38 +28,51 @@ using namespace std;
 
 //----------------------------- # --- MAIN CODE --- # -----------------------------//
 
+
+#include <bits/stdc++.h>
+using namespace std;
+#define fastio()                      \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL);                    \
+    cout.tie(NULL)
+
 void solve()
 {
-
-   
-
-   
-    int n, x;
-    cin >> n >> x;
-
-    int z;
-    vector<int> nums;
+    int n;
+    cin >> n;
+    vector<long long> v(n);
+    int lastd = 0;
+    int digit = 0;
+    int c = 0;
+    int x;
     for (int i = 0; i < n; i++)
     {
-        cin >> z;
-
-        if ((z & x) == x)
+        cin >> v[i];
+        x = (int)log2(v[i]) + 1;
+        if (x > digit)
         {
-
-            nums.push_back(z);
+            c = 1;
+            lastd = digit;
+            digit = x;
+        }
+        else if (x == digit)
+        {
+            c++;
         }
     }
-    int count=x;
-    for(int i=0;i<nums.size();i++){
-         count=(count&nums[i]);
+    sort(v.begin(), v.end(), greater<int>());
+    if(c==1){
+        cout<<c<<endl;
     }
-    if(count==x&&nums.size()>1){
-        cout<<"Yes"<<endl;
-        
-    }else{
-        cout<<"NO";
+    else if (c == n || (digit > (lastd + 1)))
+    {
+        int rem = c % 2;
+        cout << (c / 2) + rem<<endl;
     }
-    return;
+    else
+    {
+        cout << c << endl;
+    }
 }
 
 int main()
@@ -74,4 +87,6 @@ int main()
     }
     return 0;
 }
+
+
 
