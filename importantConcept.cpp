@@ -309,6 +309,30 @@ void sieveAlgo_AllPrime()
         }
     }
 }
+
+
+
+//TWO SUM
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int,int> m;
+        int n=nums.size();
+        int req;
+        vector<int> result;
+        for(int i=0;i<n;i++){
+         req=target-nums[i];
+         if(m.find(req)!=m.end()){
+             result.push_back(m[req]);
+             result.push_back(i);
+             return result;
+         }   
+         m[nums[i]]=i;
+        }
+        return {-1,-1};
+    }
+};
+
 int main()
 {
     // cout << binexp(2, 8, m);
