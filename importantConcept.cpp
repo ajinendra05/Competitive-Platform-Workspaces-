@@ -3,6 +3,28 @@ using namespace std;
 int fact[100];
 const int m = 1e9 + 7;
 
+
+
+
+//kadane's algo;
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int sum=0;
+        int ans=INT_MIN;
+
+        for(int x: nums){
+            if(sum<0)sum=0;
+            sum+=x;
+            ans=max(sum,ans);
+
+        }
+        
+        return ans;
+    }
+};
+
+
 struct AnotherVal
 {
     int value = -1; // can be changed as per requirement
