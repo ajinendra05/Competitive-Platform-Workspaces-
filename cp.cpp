@@ -37,6 +37,152 @@ using namespace std;
 
 void solve()
 {
+    int n, x, y;
+    cin>>n;
+
+    map<int, int > m1;
+    map<int, int > m2;
+
+    priority_queue<pair<int, int>> pq1;
+    priority_queue<pair<int, int>> pq2;
+
+    for(int i=0; i<n; i++){
+        cin>>x>>y;
+        pq1.push({x, y});
+        pq1.push({y, x});
+
+        m1[x]++;
+        m2[y]++;
+    }
+
+
+
+}
+
+int main()
+{
+
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        solve();
+    }
+    return 0;
+}
+void solve()
+{
+    int n, x, sum = 0;
+    cin >> n;
+
+    priority_queue<int> pq;
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> x;
+        pq.push(x);
+    }
+
+    vector<int> ans(n);
+
+    for (int i = n - 1; i >= 0; i--)
+    {
+
+        sum += pq.top();
+        ans[i] = sum;
+
+        pq.pop();
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << ans[i] << " ";
+    }
+
+    cout << endl;
+}
+
+int main()
+{
+
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        solve();
+    }
+    return 0;
+}
+
+void solve()
+{
+    int x, n;
+    unordered_set<int> st;
+    unordered_map<int, bool> flag;
+    int count = 0;
+    int ans = INT_MIN;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> x;
+        if (flag[x] == false)
+        {
+            flag[x] = true;
+
+            count++;
+            ans = max(count, ans);
+        }
+        else
+        {
+            count--;
+            flag[x] = false;
+        }
+    }
+
+    cout << count;
+}
+
+int main()
+{
+
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        solve();
+    }
+    return 0;
+}
+
+void solve()
+{
+    int x, y, price;
+    cin >> x >> y >> price;
+
+    int extra = price / 30;
+    x += extra;
+
+    if (x % y == 0)
+        cout << x / y << endl;
+    else
+        cout << x / y + 1 << endl;
+}
+
+int main()
+{
+
+    fastio();
+    ll t;
+    cin >> t;
+    while (t--)
+    {
+        solve();
+    }
+    return 0;
+}
+
+void solve()
+{
     int n;
     cin >> n;
     vector<long long> v(n);
@@ -245,7 +391,7 @@ public:
         //         }
         //     }
         // }
-        return count+1;
+        return count + 1;
     }
 };
 
